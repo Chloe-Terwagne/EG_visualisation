@@ -88,9 +88,7 @@ def get_chr_dict(df):
 text_b1 = "This study is a crucial component of my analysis aimed at prioritizing a large number of variants for editing via CRISPR-Cas9 techniques. The final selection encompasses mutations across multiple genes, making the identification of suitable genes for the cell line I'm working with an essential and critical step."
 text_b2 ="The HAP1 essentiality ratio utilized in this analysis is sourced from Blomen et al. (2015). Gene-disease associations are established through the Gene Panel App of Genomics England. Conserved regions are retrieved from gnomAD v4, while pathogenic and likely pathogenic submissions to ClinVar are gathered as of 24/04/2024."
 
-df = pd.read_csv(
-    "https://github.com/Chloe-Terwagne/VarEffectViz/blob/main/df/merged_brca1_sge_ukb_2023_04_21.csv?raw=true")
-df = pd.read_csv("/data/output_df/20240425_5226_genes_disease_selected.tsv", sep='\t')
+df = pd.read_csv("https://github.com/Chloe-Terwagne/EG_visualisation/blob/main/data/output_df/20240425_5226_genes_disease_selected.tsv?raw=true", sep='\t')
 
 df, sorted_groups = preprocess_df(df)
 chromosome_data=get_chr_dict(df)
