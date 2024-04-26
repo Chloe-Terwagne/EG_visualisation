@@ -36,6 +36,7 @@ pd.set_option('display.width', 900)
 pd.set_option('display.max_columns', 200)
 pd.set_option("display.max_rows", None)
 
+np.random.seed(42)
 
 # FUNCTION  -----------------------------------------------------------------------------------------------------------
 def preprocess_df(df):
