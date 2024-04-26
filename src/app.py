@@ -82,7 +82,7 @@ def get_chr_dict(df):
 
 # cleaning data
 text_b1 = "This study is a crucial component of my analysis aimed at prioritizing a large number of variants for editing via CRISPR-Cas9 techniques. The final selection encompasses mutations across multiple genes, making the identification of suitable genes for the cell line I'm working with an essential and critical step."
-text_b2 ="The HAP1 essentiality ratio utilized in this analysis is sourced from Blomen et al. (2015). Gene-disease associations are established through the Gene Panel App of Genomics England. Conserved regions are retrieved from gnomAD v4, while pathogenic and likely pathogenic submissions to ClinVar are gathered as of 24/04/2024."
+text_b2 ="Only genes genes essential for HAP1 survival and found in at least one gene panel are displayed (N=631). It's noteworthy that genes may appear multiple times for each condition, as each dot represents a unique gene-condition pair. The HAP1 essentiality ratio utilized in this analysis is sourced from Blomen et al. (2015). Gene-disease associations are established through the Gene Panel App of Genomics England. Conserved regions are retrieved from gnomAD v4, while pathogenic and likely pathogenic submissions to ClinVar are gathered as of 24/04/2024."
 
 df = pd.read_csv("https://github.com/Chloe-Terwagne/EG_visualisation/blob/main/data/output_df/20240425_5226_genes_disease_selected.tsv?raw=true", sep='\t')
 
@@ -200,9 +200,9 @@ app.layout = \
                     dbc.Row([pie_graph],style={'margin': '0px','padding-left': '67px','padding-right': '22px', 'z-index': '1'} ),
                     dbc.Row([overview_graph],style={'padding': '0px', 'margin': '0px' , 'z-index': '0'})]),]),
         dbc.Row([html.Br()]),
-        dbc.Row([overview_display],style={'padding-bottom': '130px', 'margin-left': '10px'}),
-        dbc.Row([html.P(text_b2 + text_b1,style= {'color': pink_vibrant,
-                                                        'font-size':10,
+        dbc.Row([overview_display],style={'padding-bottom': '80px', 'margin-left': '10px'}),
+        dbc.Row([html.P(text_b2 + text_b1,style= {'color': 'rgb(128,128,128)',
+                                                        'font-size':14,
                                                         'text-align': 'center'})], style={'padding': '50px', 'margin': '0px', 'backgroundColor': yellow_mutated, }),
 
     ], fluid=True, style={'backgroundColor': yellow_mutated})
