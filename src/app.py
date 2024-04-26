@@ -263,12 +263,9 @@ def update_overview_graph(column_name_color):
     fig.update_traces(marker=dict(size=marker_size, symbol="circle"), selector=dict(mode="markers"),
                       hovertemplate="<br>".join([
                           "<b>%{customdata[0]}</b>",
-                          "Ensembl ID: %{customdata[1]}",
-                          "Disease association confidence: %{customdata[2]}",
-                          "omim Gene: %{customdata[3]}",
-                          "Publications: %{customdata[5]}",
-                          "Mode of inheritance: %{customdata[6]}",
-                          "o/e missense mutation rate: %{customdata[7]}",
+                          "Ensembl ID: %{customdata[1]}", "Disease association confidence: %{customdata[2]}",
+                          "omim Gene: %{customdata[3]}", "Publications: %{customdata[5]}",
+                          "Mode of inheritance: %{customdata[6]}", "o/e missense mutation rate: %{customdata[7]}",
                           "Number Alleles reported Pathogenic: %{customdata[4]}"
                       ]))
 
