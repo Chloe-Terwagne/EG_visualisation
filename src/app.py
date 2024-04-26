@@ -59,7 +59,6 @@ def preprocess_df(df):
      "penetrance": 'Penetrance',
      "CEGs": 'Core-essential genes',
      }
-    print("confidenceLevel", df.confidenceLevel.value_counts())
     # Rename columns using the rename() method
     df.rename(columns=column_name_mapping, inplace=True)
     df["Confidence level"]=df["confidenceLevel"].map({1.0:'Low',2.0:'Intermediate',3.0:'High' })
@@ -69,12 +68,9 @@ def preprocess_df(df):
 def get_chr_dict(df):
     # Assuming df is your DataFrame containing the relevant data
     # Subset the DataFrame to unique 'geneSymbol_panel_app_x' column values
-    print(df.shape)
     df_unique_genes = df[['gene_name', 'seqname']].drop_duplicates()
     df_unique_genes = df_unique_genes.dropna()
 
-    print(df_unique_genes.shape)
-    print(df_unique_genes["seqname"].unique())
     # Initialize a dictionary to store the count of rows by 'seqname' for each unique gene
     dct_chr = {}
     for chr in df_unique_genes["seqname"].unique():
@@ -326,18 +322,22 @@ def update_pie(column_name_color):
     sorted_group_idx= sorted_groups.index.tolist()
     # Create subplots, using 'domain' type for pie charts
     num_groups = len(sorted_group_idx)
-    print("sorted_group_idx:", sorted_group_idx)
     specs = [[{'type': 'domain'}] * num_groups]  # 1 row, num_groups columns
     fig = make_subplots(rows=1, cols=num_groups, specs=specs, vertical_spacing = 0)
-
+    corlors = ['rgb(128, 0, 0)', 'rgb(165, 42, 42)', 'rgb(160, 82, 45)', 'rgb(139, 69, 19)', 'rgb(210, 105, 30)',
+               'rgb(205, 133, 63)', 'rgb(184, 134, 11)', 'rgb(218, 165, 32)', 'rgb(244, 164, 96)',
+               'rgb(188, 143, 143)', 'rgb(210, 180, 180)','rgb(222, 184, 135)']
+    corlors = [pink_mutated, purple_mutated, 'rgb(201,209,168)']
     # Define pie charts
     for i, group in enumerate(sorted_group_idx):
         # Filter data for the current disease group
         group_data = df_temp[df_temp['diseaseGroup'] == group]
 
         # Create a pie plot for subgroup proportions
-        pie_fig = go.Pie(labels=group_data['diseaseSubgroup'], values=group_data['ratio'],
-                         name=group, marker_colors=px.colors.qualitative.Prism)
+        pie_fig = go.Pie(labels=group_data['diseaseSubgroup'],
+                         values=group_data['ratio'],
+                         name=group,
+                         marker=dict(colors=corlors))
 
         # Calculate the center position of the pie
         start_pos = -0.0232
@@ -353,14 +353,14 @@ def update_pie(column_name_color):
             font=dict(family=font_list[idx_font], color=pink_vibrant)
         )
 
-
     # Tune layout and hover info
-    fig.update_traces(hole=.4, hoverinfo='label+percent', textinfo='none')
+    fig.update_traces(hole=.55, hoverinfo='label+percent', textinfo='none')
     fig.update(layout_showlegend=False)
 
     fig.update_layout(
         plot_bgcolor=transparent,
         paper_bgcolor=transparent,
+        colorway=corlors,
         height=180,  # Adjust the height as needed
         title=None,
         margin=dict(t=0, b=-0, l=0, r=0))
@@ -371,4 +371,4 @@ def update_pie(column_name_color):
 
 # Run app
 if __name__ == '__main__':
-    app.run_server(debug=False)
+    app.run_server(debug=True, port=8051)
